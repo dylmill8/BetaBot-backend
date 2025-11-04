@@ -1,0 +1,61 @@
+# =========================================
+# VS Code REST Client — Stage 2 API tests
+# Uses .env: API_HOST, API_PORT
+# =========================================
+
+@host = {{$dotenv API_HOST}}
+@port = {{$dotenv API_PORT}}
+@base = http://{{host}}:{{port}}
+@json = application/json
+@climb_a_id = 1
+@climb_b_id = 2
+
+###############################################################
+#                          CLIMBS                             #
+###############################################################
+
+### List climbs
+GET {{base}}/api/climbs/
+Accept: application/json
+
+### Create climb A
+# @name CreateClimbA
+POST {{base}}/api/climbs/
+Content-Type: {{json}}
+
+{"name":"Moon Arete","grade_label":"V3","grade_index":3,"location":"Kilter Board"}
+
+### Get climb A
+GET {{base}}/api/climbs/{{climb_a_id}}/
+Accept: application/json
+
+### Create climb B (for logs)
+# @name CreateClimbB
+POST {{base}}/api/climbs/
+Content-Type: {{json}}
+
+{"name":"Hammer Drop","grade_label":"V8","grade_index":8,"location":"Kilter Board"}
+
+### Get climb B
+GET {{base}}/api/climbs/{{climb_b_id}}/
+Accept: application/json
+
+### Update climb A (PUT — full replace)
+PUT {{base}}/api/climbs/{{climb_a_id}}/
+Content-Type: {{json}}
+
+{"name":"Moon Arete (Updated)","grade_label":"V4","grade_index":4,"location":"Kilter Board"}
+
+### Update climb A (PATCH — partial update)
+PATCH {{base}}/api/climbs/{{climb_a_id}}/
+Content-Type: {{json}}
+
+{"location":"Home Wall"}
+
+### Delete climb A
+DELETE {{base}}/api/climbs/{{climb_a_id}}/
+Accept: */*
+
+### Delete climb B
+DELETE {{base}}/api/climbs/{{climb_b_id}}/
+Accept: */*
