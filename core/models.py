@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import UniqueConstraint
 
 # Create your models here.
 class AppUser(models.Model):
@@ -21,6 +22,9 @@ class Climb(models.Model):
 
     class Meta:
         indexes = [models.Index(fields=["grade_index"])]
+        constraints = [
+            UniqueConstraint(fields=["owner", "name"], name="unique_owner_name")
+        ]
 
     def __str__(self): return f"{self.name} ({self.grade_label})"
 
