@@ -28,21 +28,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", "false").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 
 # Allowed CORS origins
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:19006",      # Expo web (common)
-    "http://127.0.0.1:19006",
-    "http://localhost:8081",       # Metro/dev server (sometimes the origin for web/preview)
-    "http://127.0.0.1:8081",
-]
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    re.compile(r"^http://192\.168\.\d+\.\d+(:\d+)?$"),   # any LAN IP/port on your network
-]
+CORS_ALLOWED_ORIGINS = [o for o in os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",") if o]
 
 
 # Application definition
