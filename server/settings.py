@@ -93,6 +93,15 @@ DATABASES = {
         "PASSWORD": os.getenv("DB_PASSWORD"),
         "HOST": os.getenv("DB_HOST"),
         "PORT": os.getenv("DB_PORT"),
+        
+        # Database connection options for security and performance
+        "OPTIONS": {
+            "isolation_level": 1, # READ COMMITTED (IsolationLevel.READ_COMMITTED)
+        },
+
+        # Connection pooling settings for production
+        "CONN_MAX_AGE": 60, # Keep connections alive for 60 seconds
+        "ATOMIC_REQUESTS": False,
     }
 }
 

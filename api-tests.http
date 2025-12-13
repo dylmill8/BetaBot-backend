@@ -133,3 +133,38 @@ Accept: application/json
 ### GET aggregate stats on logs (total sends, average attempts, best grade)
 GET {{base}}/api/logs/report?min_grade=0&max_grade=10
 Accept: application/json
+
+
+###############################################################
+#                      BULK CREATE                            #
+###############################################################
+
+### Bulk create multiple logs atomically (all or nothing)
+POST {{base}}/api/logs/bulk_create/
+Content-Type: {{json}}
+
+{
+  "logs": [
+    {
+      "climb": {{climb_a_id}},
+      "date": "2025-12-01",
+      "attempts": 2,
+      "sent": false,
+      "note": "First attempt"
+    },
+    {
+      "climb": {{climb_a_id}},
+      "date": "2025-12-02",
+      "attempts": 1,
+      "sent": true,
+      "note": "Sent it!"
+    },
+    {
+      "climb": {{climb_b_id}},
+      "date": "2025-12-02",
+      "attempts": 5,
+      "sent": false,
+      "note": "Tough one"
+    }
+  ]
+}
